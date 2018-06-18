@@ -1,5 +1,11 @@
 <?php namespace Tekton\Session\Facades;
 
-class Session extends \Tekton\Support\Facade {
-    protected static function getFacadeAccessor() { return 'session'; }
+use Dynamis\Facade;
+
+class Session extends Facade
+{
+    protected static function getFacadeAccessor()
+    {
+        return 'session';
+    }
 }

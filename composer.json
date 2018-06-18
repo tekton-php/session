@@ -3,16 +3,19 @@
     "type": "library",
     "license": "MIT",
     "description": "Tekton Session provides a session manager based on Aura\\Session rather than Laravel's session manager.",
-    "homepage": "https://gitlab.com/tekton/services",
+    "homepage": "https://github.com/tekton-php/services",
     "autoload": {
         "psr-4": {
             "Tekton\\Session\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0",
-        "tekton/support": "^1.0.0",
+        "tekton/support": "^2.0.0",
         "aura/session": "^2.1"
     }
 }

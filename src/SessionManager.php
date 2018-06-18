@@ -1,38 +1,47 @@
 <?php namespace Tekton\Session;
 
-use Aura\Session\SessionFactory;
+use Tekton\Session\SessionFactory;
+use Tekton\Support\Repository;
 
-class SessionManager {
-
-    use \Tekton\Support\Traits\LibraryWrapper;
-
+class SessionManager
+{
+    protected $factory;
     protected $session;
-    protected $segment;
+    protected $config;
+    protected $global;
 
-    function __construct() {
-        $this->config = app('config');
+    function __construct($config = [])
+    {
+        $this->config = new Repository($config);
         $this->factory = new SessionFactory;
         $this->session = $this->factory->newInstance($_COOKIE);
 
         // Configure session
         $this->session->setCookieParams([
-            'lifetime' => $this->config->get('session.lifetime', 120),
+            'lifetime' => $this->config->get('lifetime', 120),
         ]);
 
-        // Create main segment
-        $this->segment = $this->session->getSegment(self::class);
-        $this->library = $this->segment;
+        // Create global segment
+        $this->global = $this->session->getSegment(self::class);
     }
 
-    function factory() {
+    function global()
+    {
+        return $this->global;
+    }
+
+    function factory()
+    {
         return $this->factory;
     }
 
-    function session() {
+    function session()
+    {
         return $this->session;
     }
 
-    function segment($segment) {
+    function segment(string $segment)
+    {
         return $this->session->getSegment($segment);
     }
 }
